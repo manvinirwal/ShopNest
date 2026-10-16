@@ -51,8 +51,8 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        //Product product = productService.getProductById(id);
-         Product product = supplierService.getProductById(id);
+         Product product = productService.getProductById(id);
+         //Product product = supplierService.getProductById(id);
 
         if (product == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -60,6 +60,8 @@ public class ProductController {
         }
         return new ResponseEntity<>(from(product), HttpStatus.OK);
     }
+
+
 
 
     private ProductDto from(Product product) {
@@ -85,6 +87,22 @@ public class ProductController {
         Product product = productService.createProduct(productDto);
         return new ResponseEntity<>(from(product), HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDto> updateProduct(
+            @PathVariable Long id,
+            @RequestBody ProductDto productDto) {
+
+        Product updatedProduct = productService.updateProduct(id, productDto);
+        if(updatedProduct == null){
+            return ResponseEntity.notFound().build();
+        }
+
+
+        return ResponseEntity.ok(from(updatedProduct));
+    }
+
+
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {

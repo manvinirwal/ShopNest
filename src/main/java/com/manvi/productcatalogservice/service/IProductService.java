@@ -13,11 +13,13 @@ public interface IProductService {
 
 
     public List<Product> getAllProducts();
-    Product getProductById(Long id);
+    public Product getProductById(Long id);
 
-    Product createProduct(ProductDto productDto);
+    public Product createProduct(ProductDto productDto);
 
-    boolean deleteProductById(Long id);
+    public boolean deleteProductById(Long id);
+
+    public Product updateProduct(Long id, ProductDto productDto);
 
 
     public Page<Product> getProductsInPriceRange(BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable) ;

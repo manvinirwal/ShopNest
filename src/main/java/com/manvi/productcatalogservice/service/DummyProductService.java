@@ -58,6 +58,11 @@ public class DummyProductService implements IProductService{
     }
 
     @Override
+    public Product updateProduct(Long id, ProductDto productDto) {
+        return null;
+    }
+
+    @Override
     public Page<Product> getProductsInPriceRange(BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable) {
         return null;
     }

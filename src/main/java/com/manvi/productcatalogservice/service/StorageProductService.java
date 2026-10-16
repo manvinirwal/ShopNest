@@ -1,5 +1,6 @@
 package com.manvi.productcatalogservice.service;
 
+import com.manvi.productcatalogservice.dto.CategoryDto;
 import com.manvi.productcatalogservice.dto.ProductDto;
 import com.manvi.productcatalogservice.model.Category;
 import com.manvi.productcatalogservice.model.Product;
@@ -62,6 +63,32 @@ public class StorageProductService implements  IProductService{
         product.setLastUpdatedAt(new Date());
         productRepository.save(product);
         return true;
+    }
+
+    @Override
+    public Product updateProduct(Long id, ProductDto productDto) {
+        Product existingProduct = productRepository.findById(id).orElse(null);
+        if (existingProduct == null) {
+            return null;
+        }
+
+        Product updatedProduct = from(productDto);
+
+        existingProduct.setName(updatedProduct.getName());
+        existingProduct.setDescription(updatedProduct.getDescription());
+        existingProduct.setPrice(updatedProduct.getPrice());
+        existingProduct.setImageUrl(updatedProduct.getImageUrl());
+
+        if (updatedProduct.getCategory() != null) {
+            existingProduct.setCategory(
+                    findOrCreateCategory(updatedProduct.getCategory())
+            );
+        }
+
+        existingProduct.setLastUpdatedAt(new Date());
+
+
+        return productRepository.save(existingProduct);
     }
 
     private Category findOrCreateCategory(Category category) {
