@@ -24,6 +24,14 @@ public class AuthController {
     private final AuthService authService;
     private final JwtService jwtService;
 
+
+
+    @GetMapping("/healthcheck")
+    ResponseEntity<String> healthCheck (){
+        return new ResponseEntity<>("OK", HttpStatus.OK );
+    }
+
+
     @PostMapping("/signup")
     public ResponseEntity<UserDto> signUp(@Valid @RequestBody AuthRequest authRequest) {
         User user = authService.signUp(authRequest.getEmail(),

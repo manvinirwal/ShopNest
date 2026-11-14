@@ -23,6 +23,10 @@ public class UserController {
 
 
 
+
+
+
+
     @GetMapping("/users/me")
     public ResponseEntity<UserDto> me(Authentication authentication){
         //Authentication authentication: Spring hands us "who is this request", the box our filter filled.
