@@ -77,6 +77,7 @@ public class DummyProductService implements IProductService{
         //separate DummyJsonProductListDto because the external API returns a JSON object containing a list of products, not a JSON array directly.
         ResponseEntity<DummyJsonProductListDto> response = restTemplate.getForEntity(
                 "https://dummyjson.com/products?limit=0", DummyJsonProductListDto.class);
+        //?limit=0 means "give me all of them".
 
         List<Product> products = new ArrayList<>();
         for (DummyJsonProductDto dto : response.getBody().getProducts()) {
