@@ -103,7 +103,7 @@ public class ProductController {
             @PathVariable Long id,
             @RequestBody ProductDto productDto) {
 
-        if (id < 0) {
+        if (id <= 0) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
